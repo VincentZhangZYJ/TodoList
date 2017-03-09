@@ -1,0 +1,74 @@
+<!Doctype html>
+<html>
+<head>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="app.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+  <script src="app_update.js"></script>
+
+</head>
+<body>
+<div class="container">
+	<div ng-app="todoApp">
+		<div ng-controller="todoCtrl">
+			<header>
+				<h2>To Do List App</h2>
+				<form ng-submit="todoAdd()">
+					<input type="text" ng-model="todoText" placeholder="Add your task here" />
+					<input type="submit" value="Add" />
+				</form>
+			</header>
+			
+			<section>
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th class='col-lg-1'></th>
+							<th class='col-lg-1'>ID</th>
+							<th class='col-lg-5'>Subject</th>
+							<th class='col-lg-2'>Status</th>
+							<th class='col-lg-3'></th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- <tr ng-repeat="todo in todos" class="list-group-item"> -->
+						<tr ng-repeat="todo in todos">
+							<td>
+								<input type="checkbox" ng-model="todo.done" />
+							</td>
+							<td>
+								<span>{{$index + 1}}</span>
+							</td>
+							<td>
+								<span ng-model="todo.text" ng-hide="todo.updateClick">{{todo.text}}</span>
+								<span ng-show="todo.updateClick"><input type="text" ng-model="todo.text"/></span>
+								<button ng-click="todoSave(todo)" class="btn btn-primary btn-xs" ng-show="todo.updateClick">Save</button>
+							</td>
+							<td>
+								<span ng-model="todo.done" >{{todoStatus(todo)}}</span>
+							</td>
+							<td>
+								<button ng-click="todoUpdate(todo)" class="btn btn-primary btn-xs">Update</button>
+								<button ng-click="todoRemove($index)" class="btn btn-danger btn-xs">Remove</button>
+								
+
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+
+			<footer>
+				<ul>
+					<li>There are {{todoTotal()}} Todo tasks <strong>in total</strong>.</li>
+					<li>There are {{todoIncomplete()}} <strong>Incomplete</strong> Todo tasks.</li>
+					<li>There are {{todoCompleted()}} <strong>Completed</strong> Todo tasks.</li>
+				</ul>					
+			</footer>
+		</div>
+	</div>
+</div>	
+</body>
+</html>
